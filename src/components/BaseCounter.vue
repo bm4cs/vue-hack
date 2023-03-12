@@ -13,17 +13,22 @@ export default {
     count(newValue, oldValue) {
       console.log('newValue: ' + newValue + ' oldValue: ' + oldValue)
     }
+  },
+  mounted() {
+    console.log("mounted()")
   }
 }
 </script>
 
 <template>
-  <h1>Counter</h1>
-  <p>{{ count }}</p>
-  <button v-on:click="incrementCount">Increment Count</button>
-  <h1>{{ incrementAmount }}</h1>
   <div>
-    <label for="incrementAmount">Increment by:</label>
-    <input type="number" v-model="incrementAmount" />
+    <h1>Counter</h1>
+    <p>{{ count }}</p>
+    <button v-on:click="incrementCount">Increment Count</button>
+    <div>
+      <h3>{{ incrementAmount }}</h3>
+      <label for="incrementAmount">Increment by:</label>
+      <input type="number" v-model="incrementAmount" />
+    </div>
   </div>
 </template>

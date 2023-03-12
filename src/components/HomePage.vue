@@ -1,0 +1,112 @@
+<script>
+import Counter from './BaseCounter.vue'
+import UserCard from "./user-card.vue"
+import BaseButton from "./BaseButton.vue"
+import Pokedex from "./Pokedex.vue"
+
+export default {
+  components: {
+    Counter,
+    UserCard,
+    BaseButton,
+    Pokedex
+  },
+  data: () => ({
+    currentPage: "Home",
+    pokedex: [
+      { "name": "bulbasaur", "url": "https://pokeapi.co/api/v2/pokemon/1/" }, 
+      { "name": "ivysaur", "url": "https://pokeapi.co/api/v2/pokemon/2/" }
+    ],
+    userData: {
+      name: "Ben Mac",
+      preferredFramework: "vue",
+      favoriteFood: "Poke bowl",
+      favoriteNumbers: [7, 21, 32]
+    },
+    characters: [
+      {
+        name: "Joe McMillan",
+        id: "6a887cd2-f0bf-4321-b192-92016f82a883",
+        list: [1, 2, 3],
+      },
+      {
+        name: "Gordon Clark",
+        id: "8d14d90b-2d47-473e-8293-d5c324111d0d",
+        list: [1, 2, 3],
+      },
+      {
+        name: "Donna Clark",
+        id: "cd806d65-2309-4625-9104-dcd636cd79b5",
+        list: [1, 2, 3],
+      },
+      {
+        name: "Cameron Howe",
+        id: "00c939cd-fbf4-46d0-8e61-0bc2ce8a5332",
+        list: [1, 2, 3],
+      },
+    ]
+  }),
+  methods: {
+    changeName() {
+      this.userData.name = "Rob Pike"
+    },
+    async fetchPokemon() {
+      this.pokedex = await fetch("https://pokeapi.co/api/v2/pokemon?limit=128&offset=0")
+        .then((response) => response.json())
+        .then((data) => data.results)
+    }
+  },
+  created() {
+    this.fetchPokemon()
+  }
+}
+</script>
+
+<template>
+  <main>
+    <h1>Welcome to <br />C'est La Vue</h1>
+    <p>
+      This is a place to manage various things: todos, users, posts, etc.
+      Whatever your mind desires!
+    </p>
+
+    <div class="wrapper">
+      <BaseButton>Hoot hoot 🦉</BaseButton>
+      <UserCard :user="userData" @change-name="changeName()" />
+      <Counter />
+      <Pokedex :pokemonList="pokedex" />
+    </div>
+  </main>
+</template>
+
+<style>
+main {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+main h1 {
+  margin-top: 10vh;
+  margin-bottom: 20px;
+}
+
+label {
+  margin-bottom: 5px;
+}
+
+input[type="email"] {
+  padding: 0.5rem;
+  margin-bottom: 30px;
+}
+
+button {
+  border: 1px solid green;
+  padding: 10px;
+  color: green;
+  background-color: rgb(213, 255, 213);
+  cursor: pointer;
+}
+</style>

@@ -1,6 +1,6 @@
-# sandbox
+# vue-hack
 
-This template should help get you started developing with Vue 3 in Vite.
+This is `bm4cs` Vue 3 learning repo.
 
 ## Recommended IDE Setup
 
