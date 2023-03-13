@@ -10,3 +10,9 @@ export default {
 <template>
     <button><slot /></button>
 </template>
+
+<style scoped>
+button {
+    margin-top: 10px;
+}
+</style>

@@ -22,9 +22,10 @@ export default {
 
 <template>
   <div>
-    <h1>Counter</h1>
+    <h1>BaseCounter.vue</h1>
     <p>{{ count }}</p>
-    <button v-on:click="incrementCount">Increment Count</button>
+    <button class="button" v-on:click="incrementCount">Increment Count</button>
+    <p>^^^ this button is scope styled (PostCSS)</p>
     <div>
       <h3>{{ incrementAmount }}</h3>
       <label for="incrementAmount">Increment by:</label>
@@ -32,3 +33,9 @@ export default {
     </div>
   </div>
 </template>
+
+<style scoped>
+button {
+  border: 3px turquoise solid;
+}
+</style>

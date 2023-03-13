@@ -1,10 +1,24 @@
 <script>
 import Counter from './BaseCounter.vue'
-import UserCard from "./user-card.vue"
+import UserCard from "./UserCard.vue"
 import BaseButton from "./BaseButton.vue"
 import Pokedex from "./Pokedex.vue"
 
 export default {
+  // setup = Composition API
+  async setup() {
+    const regionName = 'kanto';
+
+    //Calling a REST API using the Composition API style
+    const pokedex = await fetch("https://pokeapi.co/api/v2/pokemon?limit=128&offset=0")
+        .then((response) => response.json())
+        .then((data) => data.results)
+
+    return {
+      pokedex,
+      regionName
+    };
+  },
   components: {
     Counter,
     UserCard,
@@ -13,10 +27,12 @@ export default {
   },
   data: () => ({
     currentPage: "Home",
-    pokedex: [
-      { "name": "bulbasaur", "url": "https://pokeapi.co/api/v2/pokemon/1/" }, 
-      { "name": "ivysaur", "url": "https://pokeapi.co/api/v2/pokemon/2/" }
-    ],
+    colorPreference: 'papayawhip',
+    // Refactored to use composition API (see setup())
+    // pokedex: [
+    //   { "name": "bulbasaur", "url": "https://pokeapi.co/api/v2/pokemon/1/" },
+    //   { "name": "ivysaur", "url": "https://pokeapi.co/api/v2/pokemon/2/" }
+    // ],
     userData: {
       name: "Ben Mac",
       preferredFramework: "vue",
@@ -50,14 +66,16 @@ export default {
     changeName() {
       this.userData.name = "Rob Pike"
     },
-    async fetchPokemon() {
-      this.pokedex = await fetch("https://pokeapi.co/api/v2/pokemon?limit=128&offset=0")
-        .then((response) => response.json())
-        .then((data) => data.results)
-    }
+    // Refactored to use composition API (see setup())
+    // async fetchPokemon() {
+    //   this.pokedex = await fetch("https://pokeapi.co/api/v2/pokemon?limit=128&offset=0")
+    //     .then((response) => response.json())
+    //     .then((data) => data.results)
+    // }
   },
   created() {
-    this.fetchPokemon()
+    // Refactored to use composition API (see setup())
+    // this.fetchPokemon()
   }
 }
 </script>
@@ -69,6 +87,10 @@ export default {
       This is a place to manage various things: todos, users, posts, etc.
       Whatever your mind desires!
     </p>
+    <p>
+      Pick a color: <input type="color" v-model="colorPreference" /> <b>{{ colorPreference }}</b>
+    </p>
+    <p>^^^ this color is CSS v-bind(), tracking the reactive data to the background-color</p>
 
     <div class="wrapper">
       <BaseButton>Hoot hoot 🦉</BaseButton>
@@ -80,6 +102,10 @@ export default {
 </template>
 
 <style>
+main {
+  background-color: v-bind(colorPreference);
+}
+
 main {
   display: flex;
   justify-content: center;

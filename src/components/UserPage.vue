@@ -20,7 +20,7 @@ export default {
   <main>
     <h1>Users</h1>
     <ul>
-      <li v-for="user in userList">
+      <li v-for="user in userList" :key="user.id">
         {{ user.name }} <em>{{ user.website }}</em>
       </li>
     </ul>

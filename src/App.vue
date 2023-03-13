@@ -27,22 +27,33 @@ export default {
 </script>
 
 <template>
-  <header class="header">
-    <span class="logo">
-      <img src="@/assets/vue-heart.png" width="30" />C'est La Vue
-    </span>
-    <nav class="nav">
-      <a href="#" @click.prevent="showHomePage">Home</a>
-      <a href="#" @click.prevent="showLoginPage">Login</a>
-      <a href="#" @click.prevent="showUserPage">Users</a>
-    </nav>
-  </header>
-  <HomePage v-if="currentPage === 'Home'" />
-  <UserPage v-else-if="currentPage === 'Users'" />
-  <LoginPage v-else />
+  <Suspense>
+    <div>
+      <header class="header">
+        <span class="logo">
+          <img src="@/assets/vue-heart.png" width="30" />C'est La Vue
+        </span>
+        <nav class="nav">
+          <a href="#" @click.prevent="showHomePage">Home</a>
+          <a href="#" @click.prevent="showLoginPage">Login</a>
+          <a href="#" @click.prevent="showUserPage">Users</a>
+        </nav>
+      </header>
+      <HomePage v-if="currentPage === 'Home'" />
+      <UserPage v-else-if="currentPage === 'Users'" />
+      <LoginPage v-else />
+    </div>
+    <template #fallback>
+      Loading...
+    </template>
+  </Suspense>
 </template>
 
 <style>
+html {
+  background-color: papayawhip;
+}
+
 * {
   box-sizing: border-box;
   font-family: "Inter", sans-serif;
@@ -84,5 +95,9 @@ span.logo img {
 
 .nav a:last-child {
   padding-right: 0;
+}
+
+.button {
+  border: 3px solid orangered !important;
 }
 </style>
