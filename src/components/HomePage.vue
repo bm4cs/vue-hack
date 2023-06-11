@@ -4,7 +4,7 @@ import UserCard from "./UserCard.vue"
 import BaseButton from "./BaseButton.vue"
 import Pokedex from "./Pokedex.vue"
 
-import { computed, reactive, ref } from "vue";
+import { computed, reactive, ref, onBeforeUnmount } from "vue";
 
 // data
 // ref is reactive data  
@@ -74,6 +74,9 @@ const pokedex = await fetch("https://pokeapi.co/api/v2/pokemon?limit=128&offset=
 //   regionNameAllCaps
 // };
 
+onBeforeUnmount(() => {
+  console.log('HomePage.vue onBeforeUnmount')
+})
 </script>
 
 <template>

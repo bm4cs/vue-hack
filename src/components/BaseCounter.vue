@@ -1,12 +1,20 @@
 <script>
+import { useCount } from '../composables/countStore'
+
 export default {
+  setup() {
+    const countStore = useCount()
+    return {
+      countStore
+    }
+  },
   data: () => ({
-    count: 10,
+    // count: 10, // now defined as composable
     incrementAmount: 8
   }),
   methods: {
     incrementCount() {
-      this.count += this.incrementAmount
+      this.countStore.incrementLocalCount(this.incrementAmount)
     }
   },
   watch: {
@@ -23,7 +31,7 @@ export default {
 <template>
   <div>
     <h1>BaseCounter.vue</h1>
-    <p>{{ count }}</p>
+    <p>{{ countStore.localCount }}</p>
     <button class="button" v-on:click="incrementCount">Increment Count</button>
     <p>^^^ this button is scope styled (PostCSS)</p>
     <div>
