@@ -1,29 +1,15 @@
-<script lang="js">
-import HomePage from "./components/HomePage.vue";
-import LoginPage from "./components/LoginPage.vue";
-import UserPage from "./components/UserPage.vue"
+<script setup>
+import { ref, watch } from 'vue'
+import { useRouter } from 'vue-router'
+import { useCount } from './composables/countStore'
+const countStore = useCount()
+const router = useRouter()
 
-export default {
-  components: {
-    HomePage,
-    LoginPage,
-    UserPage
-  },
-  data: () => ({
-    currentPage: "Home"
-  }),
-  methods: {
-    showHomePage() {
-      this.currentPage = "Home";
-    },
-    showLoginPage() {
-      this.currentPage = "Login";
-    },
-    showUserPage() {
-      this.currentPage = "Users";
-    },
+watch(countStore.globalCount, (val) => {
+  if (val > 1000) {
+    router.push('/user')
   }
-}
+})
 </script>
 
 <template>
@@ -34,14 +20,16 @@ export default {
           <img src="@/assets/vue-heart.png" width="30" />C'est La Vue
         </span>
         <nav class="nav">
-          <a href="#" @click.prevent="showHomePage">Home</a>
-          <a href="#" @click.prevent="showLoginPage">Login</a>
-          <a href="#" @click.prevent="showUserPage">Users</a>
+          <router-link to="/">Home</router-link>
+          <router-link to="/login">Login</router-link>
+          <router-link to="/user">User</router-link>
         </nav>
       </header>
-      <HomePage v-if="currentPage === 'Home'" />
+      <h2>{{ countStore.globalCount }}</h2>
+      <!-- <HomePage v-if="currentPage === 'Home'" />
       <UserPage v-else-if="currentPage === 'Users'" />
-      <LoginPage v-else />
+      <LoginPage v-else /> -->
+      <router-view />
     </div>
     <template #fallback>
       Loading...

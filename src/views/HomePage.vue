@@ -1,8 +1,8 @@
 <script setup>
-import Counter from './BaseCounter.vue'
-import UserCard from "./UserCard.vue"
-import BaseButton from "./BaseButton.vue"
-import Pokedex from "./Pokedex.vue"
+import Counter from "../components/BaseCounter.vue"
+import UserCard from "../components/UserCard.vue"
+import BaseButton from "../components/BaseButton.vue"
+import Pokedex from "../components/Pokedex.vue"
 
 import { computed, reactive, ref, onBeforeUnmount } from "vue";
 

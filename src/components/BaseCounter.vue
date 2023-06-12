@@ -14,7 +14,7 @@ export default {
   }),
   methods: {
     incrementCount() {
-      this.countStore.incrementLocalCount(this.incrementAmount)
+      this.countStore.incrementGlobalCount(this.incrementAmount)
     }
   },
   watch: {
@@ -31,7 +31,7 @@ export default {
 <template>
   <div>
     <h1>BaseCounter.vue</h1>
-    <p>{{ countStore.localCount }}</p>
+    <p>{{ countStore.globalCount }}</p>
     <button class="button" v-on:click="incrementCount">Increment Count</button>
     <p>^^^ this button is scope styled (PostCSS)</p>
     <div>
